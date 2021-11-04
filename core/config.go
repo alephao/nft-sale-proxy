@@ -13,13 +13,16 @@ type Config struct {
 	IncognitoDescription  string
 	IncognitoExternalLink string
 
-	NumberOfTokens int
-	RevealUpTo     int
+	NumberOfTokens int64
+	RevealUpTo     int64
+
+	IsERC1155 bool
 }
 
 func NewConfigFromEnv() *Config {
-	numberOfTokens, _ := strconv.Atoi(os.Getenv("NUMBER_OF_TOKENS"))
-	revealUpTo, _ := strconv.Atoi(os.Getenv("REVEAL_UP_TO"))
+	numberOfTokens, _ := strconv.ParseInt(os.Getenv("NUMBER_OF_TOKENS"), 10, 0)
+	revealUpTo, _ := strconv.ParseInt(os.Getenv("REVEAL_UP_TO"), 10, 0)
+	erc1155 := os.Getenv("ERC1155") == "true"
 
 	return &Config{
 		BaseURL:               os.Getenv("BASE_URL"),
@@ -29,5 +32,6 @@ func NewConfigFromEnv() *Config {
 		IncognitoExternalLink: os.Getenv("INCOGNITO_EXTERNAL_LINK"),
 		NumberOfTokens:        numberOfTokens,
 		RevealUpTo:            revealUpTo,
+		IsERC1155:             erc1155,
 	}
 }

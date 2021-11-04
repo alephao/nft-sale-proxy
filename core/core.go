@@ -22,8 +22,7 @@ type Metadata struct {
 	Attributes   []Attribute `json:"attributes,omitempty"`
 }
 
-func FetchMetadataERC721(config *Config, id int) (*Metadata, error) {
-	url := fmt.Sprintf("%s%d", config.BaseURL, id)
+func fetchMetadata(url string) (*Metadata, error) {
 	resp, err := http.Get(url)
 
 	if err != nil {
@@ -47,9 +46,19 @@ func FetchMetadataERC721(config *Config, id int) (*Metadata, error) {
 	return &meta, nil
 }
 
-func IncognitoMetadata(config *Config, id int) *Metadata {
+func FetchMetadataERC721(config *Config, id int64) (*Metadata, error) {
+	url := fmt.Sprintf("%s%d", config.BaseURL, id)
+	return fetchMetadata(url)
+}
+
+func FetchMetadataERC1155(config *Config, id int64) (*Metadata, error) {
+	url := fmt.Sprintf("%s%064x", config.BaseURL, id)
+	return fetchMetadata(url)
+}
+
+func IncognitoMetadata(config *Config, id int64) *Metadata {
 	return &Metadata{
-		Name:         strings.ReplaceAll(config.IncognitoName, "{id}", strconv.Itoa(id)),
+		Name:         strings.ReplaceAll(config.IncognitoName, "{id}", strconv.FormatInt(id, 10)),
 		Description:  config.IncognitoDescription,
 		Image:        config.IncognitoImageURL,
 		ExternalLink: config.IncognitoExternalLink,
@@ -58,9 +67,13 @@ func IncognitoMetadata(config *Config, id int) *Metadata {
 }
 
 // Returns the real metadata or incognito metadata depending on the configuration
-func FetchMetdata(config *Config, id int) (*Metadata, error) {
+func FetchMetdata(config *Config, id int64) (*Metadata, error) {
 	if id <= config.RevealUpTo {
-		return FetchMetadataERC721(config, id)
+		if config.IsERC1155 {
+			return FetchMetadataERC1155(config, id)
+		} else {
+			return FetchMetadataERC721(config, id)
+		}
 	} else {
 		return IncognitoMetadata(config, id), nil
 	}

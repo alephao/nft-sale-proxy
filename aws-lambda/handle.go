@@ -25,7 +25,13 @@ func HandleRequest(ctx context.Context, request Request) (Response, error) {
 		return response, nil
 	}
 
-	id, err := strconv.Atoi(tokenId)
+	var id int64
+	var err error
+	if config.IsERC1155 {
+		id, err = strconv.ParseInt(tokenId, 16, 32)
+	} else {
+		id, err = strconv.ParseInt(tokenId, 10, 0)
+	}
 	if err != nil || id < 0 || id > config.NumberOfTokens {
 		response := Response{
 			StatusCode: 404,
