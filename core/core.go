@@ -15,11 +15,11 @@ type Attribute struct {
 }
 
 type Metadata struct {
-	Name         string      `json:"name"`
-	Description  string      `json:"description"`
-	Image        string      `json:"image"`
-	ExternalLink string      `json:"external_link"`
-	Attributes   []Attribute `json:"attributes"`
+	Name         string      `json:"name,omitempty"`
+	Description  string      `json:"description,omitempty"`
+	Image        string      `json:"image,omitempty"`
+	ExternalLink string      `json:"external_link,omitempty"`
+	Attributes   []Attribute `json:"attributes,omitempty"`
 }
 
 func FetchMetadataERC721(config *Config, id int) (*Metadata, error) {
