@@ -2,7 +2,28 @@
 
 A proxy to hide NFT metadata during the sale and prevent people from sniping specific NFTs.
 
-Check [alephao/nft-sale-proxy-examples](https://github.com/alephao/nft-sale-proxy-examples) to see how to use it.
+Examples: [alephao/nft-sale-proxy-examples](https://github.com/alephao/nft-sale-proxy-examples)
+
+### Getting Started
+
+#### AWS Lambda
+
+To create the proxy using AWS Lambda is very simple, you just need a `go` file with the code below:
+
+```go
+package main
+
+import (
+	proxy "github.com/alephao/nft-sale-proxy/aws-lambda"
+	"github.com/aws/aws-lambda-go/lambda"
+)
+
+func main() {
+	lambda.Start(proxy.HandleRequest)
+}
+```
+
+Then you need to make the environment variables listed below available during runtime.
 
 ### Configuration
 
