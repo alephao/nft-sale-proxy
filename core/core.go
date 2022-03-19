@@ -18,6 +18,8 @@ type Metadata struct {
 	Name         string      `json:"name,omitempty"`
 	Description  string      `json:"description,omitempty"`
 	Image        string      `json:"image,omitempty"`
+  ImageUrl     string      `json:"image_url,omitempty"`
+	AnimationUrl string      `json:"animation_url,omitempty"`
 	ExternalLink string      `json:"external_link,omitempty"`
 	Attributes   []Attribute `json:"attributes,omitempty"`
 }
