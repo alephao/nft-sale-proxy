@@ -14,11 +14,10 @@ type GenericResponse struct {
 }
 
 func HandleRequest(
+	config *Config,
 	httpClient *http.Client,
 	getTokenId func() string,
 ) (GenericResponse, error) {
-	config := NewConfigFromEnv()
-
 	tokenId := getTokenId()
 	if tokenId == "" {
 		response := GenericResponse{
