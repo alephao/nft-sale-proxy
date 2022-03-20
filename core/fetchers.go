@@ -9,8 +9,8 @@ import (
 	"strings"
 )
 
-func fetchMetadata(url string) (map[string]interface{}, error) {
-	resp, err := http.Get(url)
+func fetchMetadata(httpClient *http.Client, url string) (map[string]interface{}, error) {
+	resp, err := httpClient.Get(url)
 
 	if err != nil {
 		return nil, err
@@ -33,14 +33,14 @@ func fetchMetadata(url string) (map[string]interface{}, error) {
 	return meta, nil
 }
 
-func FetchMetadataERC721(config *Config, id int64) (map[string]interface{}, error) {
+func FetchMetadataERC721(config *Config, httpClient *http.Client, id int64) (map[string]interface{}, error) {
 	url := fmt.Sprintf("%s%d", config.BaseURL, id)
-	return fetchMetadata(url)
+	return fetchMetadata(httpClient, url)
 }
 
-func FetchMetadataERC1155(config *Config, id int64) (map[string]interface{}, error) {
+func FetchMetadataERC1155(config *Config, httpClient *http.Client, id int64) (map[string]interface{}, error) {
 	url := fmt.Sprintf("%s%064x", config.BaseURL, id)
-	return fetchMetadata(url)
+	return fetchMetadata(httpClient, url)
 }
 
 func IncognitoMetadata(config *Config, id int64) map[string]interface{} {
@@ -64,12 +64,12 @@ func IncognitoMetadata(config *Config, id int64) map[string]interface{} {
 }
 
 // Returns the real metadata or incognito metadata depending on the configuration
-func FetchMetdata(config *Config, id int64) (map[string]interface{}, error) {
+func FetchMetdata(httpClient *http.Client, config *Config, id int64) (map[string]interface{}, error) {
 	if id <= config.RevealUpTo {
 		if config.IsERC1155 {
-			return FetchMetadataERC1155(config, id)
+			return FetchMetadataERC1155(config, httpClient, id)
 		} else {
-			return FetchMetadataERC721(config, id)
+			return FetchMetadataERC721(config, httpClient, id)
 		}
 	} else {
 		return IncognitoMetadata(config, id), nil

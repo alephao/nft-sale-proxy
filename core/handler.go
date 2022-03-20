@@ -3,6 +3,7 @@ package core
 import (
 	"encoding/json"
 	"fmt"
+	"net/http"
 	"strconv"
 )
 
@@ -13,6 +14,7 @@ type GenericResponse struct {
 }
 
 func HandleRequest(
+	httpClient *http.Client,
 	getTokenId func() string,
 ) (GenericResponse, error) {
 	config := NewConfigFromEnv()
@@ -41,7 +43,7 @@ func HandleRequest(
 		return response, nil
 	}
 
-	metadata, err := FetchMetdata(config, id)
+	metadata, err := FetchMetdata(httpClient, config, id)
 
 	if err != nil {
 		response := GenericResponse{
