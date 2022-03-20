@@ -1,4 +1,5 @@
 # NFT Sale Proxy
+[![Test](https://github.com/alephao/nft-sale-proxy/actions/workflows/test.yml/badge.svg)](https://github.com/alephao/nft-sale-proxy/actions/workflows/test.yml)
 
 A proxy to hide NFT metadata during the sale and prevent people from sniping specific NFTs.
 
