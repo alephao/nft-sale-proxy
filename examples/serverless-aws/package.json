@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "serverless": "^3.7.9"
+  },
+  "scripts": {
+    "deploy": "sls deploy --verbose"
+  }
+}
