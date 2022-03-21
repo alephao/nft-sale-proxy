@@ -55,7 +55,7 @@ func main() {
 
 Then you need to make the environment variables listed below available during runtime.
 
-You can see a complete example here: [alephao/nft-sale-proxy-examples](https://github.com/alephao/nft-sale-proxy-examples)
+You can see a complete example [here](nft-sale-proxy/examples/serverless-aws)
 
 ### Configuration
 
