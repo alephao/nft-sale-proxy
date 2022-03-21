@@ -7,9 +7,14 @@ Usage examples: [alephao/nft-sale-proxy-examples](https://github.com/alephao/nft
 
 ### What is this?
 
-When dropping a new NFT collection, you don't want the users to be able to know the metadata of a token that were not minted yet, but if you leave the real metadata uri in the contract's `baseURI` then people can just fetch the metadata for all ids, figure out which nfts are rare, and use flashbots to mint the specific rare nft. [This blog post explains how](https://www.paradigm.xyz/2021/10/a-guide-to-designing-effective-nft-launches/).
+A common practice for gacha style NFT drops with off-chain metadata is to:
 
-This repo contains one simple solution for this problem, it's a proxy that returns a fake nft metadata (configured by you) or the real nft metadata (fetches it from somewhere else) depending on your configuration and what the user requested.
+1. Have a url to get the token metadata similar to `https://example.com/{id}` or `ipfs://{CID}/{id}`
+2. Have incremental ids for each NFT, so in a 10k collection you have a token with id `1`, another with id `2` and this continues up to id `10000`.
+
+In this scenario, anyone can find out the traits of a token before it is minted, bypassing the gacha mechanic. A more advanced minter can even fetch the metadata for all tokens, find the most rares and snipe them, giving them an unfair advantage. You can read more about this in [this blog post](https://www.paradigm.xyz/2021/10/a-guide-to-designing-effective-nft-launches/).
+
+This repo contains a simple solution for this problem: A proxy that returns a fake nft metadata (configured by you) or the real nft metadata (fetches it from somewhere else and forwards the response) depending on your configuration and what the user requested.
 
 For example, if the token metadata is in an IPFS folder, the proxy would fetch the metadata from that IPFS folder and return the result to the user if the token is revealed.
 
