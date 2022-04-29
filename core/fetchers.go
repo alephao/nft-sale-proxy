@@ -63,9 +63,19 @@ func IncognitoMetadata(config *Config, id int64) map[string]interface{} {
 	return meta
 }
 
+func idInBoundaries(config *Config, id int64) bool {
+	for _, boundaries := range config.OtherReveals {
+		if boundaries[0] <= id && boundaries[1] >= id {
+			return true
+		}
+	}
+	return false
+}
+
 // Returns the real metadata or incognito metadata depending on the configuration
 func FetchMetdata(httpClient *http.Client, config *Config, id int64) (map[string]interface{}, error) {
-	if id <= config.RevealUpTo {
+
+	if id <= config.RevealUpTo || idInBoundaries(config, id) {
 		if config.IsERC1155 {
 			return FetchMetadataERC1155(config, httpClient, id)
 		} else {

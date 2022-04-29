@@ -3,6 +3,7 @@ package core
 import (
 	"os"
 	"strconv"
+	"strings"
 )
 
 type Config struct {
@@ -15,8 +16,25 @@ type Config struct {
 
 	NumberOfTokens int64
 	RevealUpTo     int64
+	OtherReveals   [][2]int64
 
 	IsERC1155 bool
+}
+
+func GetOtherReveals(otherRevealsString string) [][2]int64 {
+	if otherRevealsString == "" {
+		return [][2]int64{}
+	}
+	ranges := strings.Split(otherRevealsString, ",")
+	otherReveals := [][2]int64{}
+	for _, r := range ranges {
+		components := strings.Split(r, "-")
+		// TODO: Handle those errors
+		from, _ := strconv.ParseInt(components[0], 10, 64)
+		to, _ := strconv.ParseInt(components[1], 10, 64)
+		otherReveals = append(otherReveals, [2]int64{from, to})
+	}
+	return otherReveals
 }
 
 func NewConfigFromEnv() *Config {
@@ -32,6 +50,7 @@ func NewConfigFromEnv() *Config {
 		IncognitoExternalLink: os.Getenv("INCOGNITO_EXTERNAL_LINK"),
 		NumberOfTokens:        numberOfTokens,
 		RevealUpTo:            revealUpTo,
+		OtherReveals:          GetOtherReveals(os.Getenv("OTHER_REVEALS")),
 		IsERC1155:             erc1155,
 	}
 }

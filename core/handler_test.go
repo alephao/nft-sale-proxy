@@ -54,6 +54,61 @@ func TestHandler(t *testing.T) {
 		})
 	})
 
+	t.Run("token id > revealUpTo but in other boundaries", func(t *testing.T) {
+		mockClient, url := mockHttpClient(GenericResponse{StatusCode: 200, Body: `{"a": "b", "c": 150}`})
+		config := &Config{
+			NumberOfTokens: 1000,
+			RevealUpTo:     10,
+			OtherReveals:   [][2]int64{{100, 200}},
+			BaseURL:        fmt.Sprintf("%s/", url),
+		}
+		response, err := HandleRequest(config, mockClient, func() string { return "150" })
+		assertError(t, err, nil)
+		assertResponse(t, response, GenericResponse{
+			StatusCode: 200,
+			Headers: map[string]string{
+				"Content-Type": "application/json",
+			},
+			Body: `{"a":"b","c":150}`,
+		})
+	})
+
+	t.Run("token id > revealUpTo and 1 less than other boundaries", func(t *testing.T) {
+		config := &Config{
+			NumberOfTokens: 1000,
+			RevealUpTo:     10,
+			IncognitoName:  "foo",
+			OtherReveals:   [][2]int64{{100, 200}},
+		}
+		response, err := HandleRequest(config, nil, func() string { return "99" })
+		assertError(t, err, nil)
+		assertResponse(t, response, GenericResponse{
+			StatusCode: 200,
+			Headers: map[string]string{
+				"Content-Type": "application/json",
+			},
+			Body: `{"name":"foo"}`,
+		})
+	})
+
+	t.Run("token id > revealUpTo and 1 more than other boundaries", func(t *testing.T) {
+		config := &Config{
+			NumberOfTokens: 1000,
+			RevealUpTo:     10,
+			IncognitoName:  "foo",
+			OtherReveals:   [][2]int64{{100, 200}},
+		}
+		response, err := HandleRequest(config, nil, func() string { return "201" })
+		assertError(t, err, nil)
+		assertResponse(t, response, GenericResponse{
+			StatusCode: 200,
+			Headers: map[string]string{
+				"Content-Type": "application/json",
+			},
+			Body: `{"name":"foo"}`,
+		})
+	})
+
 	t.Run("happy path", func(t *testing.T) {
 		mockClient, url := mockHttpClient(GenericResponse{StatusCode: 200, Body: `{"a": "b", "c": 10}`})
 		config := &Config{
