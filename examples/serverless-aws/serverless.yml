@@ -8,6 +8,7 @@ provider:
   environment:
     NUMBER_OF_TOKENS: 10000
     REVEAL_UP_TO: 1000
+    OTHER_REVEALS: 1100-1200,1600-1700
     BASE_URL: https://ipfs.io/ipfs/QmeSjSinHpPnmXmspMjwiXyN6zS4E9zccariGR3jxcaWtq/
     INCOGNITO_IMAGE_URL: ipfs://QmeSjSinHpPnmXmspMjwiXyN6zS4E9zccariGR3jxcaWtq/0
     INCOGNITO_NAME: "#{id}"
