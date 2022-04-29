@@ -71,9 +71,5 @@ The proxy is configured using environment variables:
 | `INCOGNITO_EXTERNAL_LINK` | The `external_link` attribute that will show for non-revealed tokens |
 | `NUMBER_OF_TOKENS` | The maximum amount of tokens. The proxy will return 404 for incoming requests with a number highe than this value |
 | `REVEAL_UP_TO` | The highest token id that will be revealed. Start with `-1`, to reveal none. To reveal the first `1000`, change to `999`. Etc. |
-<<<<<<< HEAD
-| `ERC1155` | Set this to `true` if the token is an ERC1155. This will use 32 bytes hex values padded with `0`s as the id. |
-=======
 | `OTHER_REVEALS` | Other ranges of token ids to be revealed. Should be a string in the format the following format: `<FROM>-<TO>,<FROM2>-<TO2>` e.g.: `1100-1200,1600-1700` will reveal token ids between 1100-1200 and 1600-1700 inclusive. |
 | `ERC1155` | Set this to `true` if the token is an ERC1155. This will use 32 bytes hex values padded with `0`s as the id. |
->>>>>>> 2c403e0 (feat: add option to reveal other range of ids)
