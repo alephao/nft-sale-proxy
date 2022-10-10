@@ -1,6 +1,6 @@
 {
   "devDependencies": {
-    "serverless": "^3.7.9"
+    "serverless": "^3.22.0"
   },
   "scripts": {
     "deploy": "sls deploy --verbose"
