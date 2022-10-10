@@ -1,6 +1,6 @@
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
-github.com/alephao/nft-sale-proxy v0.4.0 h1:b0nFuFEB8PPlaa5ih//XO7uZY8oa+06h/bzFmXeqjic=
-github.com/alephao/nft-sale-proxy v0.4.0/go.mod h1:uryra5WpBO8ETeRIe719GR0BNI0olXnvp1uqGqJBkKU=
+github.com/alephao/nft-sale-proxy v0.5.0 h1:GunnrqPN86zsN8RtIsMCVozIuqer92ODBcRwmSvWs30=
+github.com/alephao/nft-sale-proxy v0.5.0/go.mod h1:Yl4rYiYI8dtIRNmA5B4n4k/W9/iasOk3PWiB7bz73II=
 github.com/aws/aws-lambda-go v1.27.0 h1:aLzrJwdyHoF1A18YeVdJjX8Ixkd+bpogdxVInvHcWjM=
 github.com/aws/aws-lambda-go v1.27.0/go.mod h1:jJmlefzPfGnckuHdXX7/80O3BvUUi12XOkbv4w9SGLU=
 github.com/cpuguy83/go-md2man/v2 v2.0.0-20190314233015-f79a8a8ca69d/go.mod h1:maD7wRr/U5Z6m/iR4s+kqSMx2CaBsrgA7czyZG/E6dU=
