@@ -4,7 +4,7 @@ import (
 	"context"
 	"net/http"
 
-	core "github.com/alephao/nft-sale-proxy/core"
+	core "github.com/alephao/nft-sale-proxy/pkg/core"
 	"github.com/aws/aws-lambda-go/events"
 )
 
